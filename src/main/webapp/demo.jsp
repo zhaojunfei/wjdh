@@ -1,0 +1,1 @@
+<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe996a36188be510b&redirect_uri=http://wj.tunnel.qydev.com/wechat/init&&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect">wechat</a>

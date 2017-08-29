@@ -11,22 +11,14 @@
 		<setting name="defaultStatementTimeout" value="25000" />
 	</settings>
 	<typeAliases>
-			<!--会员中心 -->
-		<!-- <typeAlias type="com.qianbao.domain.User" alias="user" /> -->
+	
+		<typeAlias type="com.mywjdh.logistics.logisticswechat.domain.User" alias="user" /> 
 		
 	</typeAliases>
 	
-		<!-- 必须放到settings下面 -->
-	<plugins>
-		<plugin
-			interceptor="com.github.miemiedev.mybatis.paginator.OffsetLimitInterceptor">
-			<property name="dialectClass"
-				value="com.github.miemiedev.mybatis.paginator.dialect.MySQLDialect" />
-		</plugin>
-	</plugins>
 	<mappers>
-		<!-- 公共信息 -->
-		<!-- <mapper resource="mybatisMappers/ParameterClassMapper.xml" /> -->
+		
+		<mapper resource="mybatisMappers/UserMapper.xml" /> 
 		
 	</mappers>
 
