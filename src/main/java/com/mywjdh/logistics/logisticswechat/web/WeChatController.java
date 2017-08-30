@@ -125,7 +125,9 @@ public class WeChatController {
 			record.setCompanyName(company);
 			record.setCreateDate(new Date());
 			record.setUpdateDate(new Date());
+			record.setDelFlag("1");
 			userService.insert(record);
+			
 			session.invalidate();
 		}
 		map.put("responseCode", "00000000");

@@ -42,9 +42,10 @@ public class SMSUtil {
 		msg = msg.replace("{code}", code);
 		params.put("msg", msg);
 		params.put("needstatus", "true");
-		params.put("product", "");
+		params.put("product", "9418211");
 		try {
 			String result = net(url, params, "POST");
+			System.out.println(result);
 		} catch (Exception e) {
 			e.printStackTrace();
 

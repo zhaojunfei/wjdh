@@ -1,6 +1,7 @@
 package org.sword.wechat4j.user;
 
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -141,13 +142,18 @@ public class UserManager {
 			url+="&lang="+lang.name();
 		}
 		String resultStr = HttpUtils.get(url);
-		logger.info("return data "+resultStr);
 		try {
+		resultStr = new String(resultStr.getBytes("ISO-8859-1"), "UTF-8");
+		logger.info("return data "+resultStr);
+		
 			WeChatUtil.isSuccess(resultStr);
 		} catch (WeChatException e) {
 			logger.error(e.getMessage());
 			e.printStackTrace();
 			return null;
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		User user = JSONObject.parseObject(resultStr, User.class);
 		return user;
