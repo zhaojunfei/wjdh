@@ -11,13 +11,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>无标题文档</title>
+<title>账户绑定</title>
 <link rel="stylesheet" href="${ctx}/style/weui.css">
 <link rel="stylesheet" href="${ctx}/style/weui-extend.css">
 <link rel="stylesheet" href="${ctx}/style/jquery-weui.css">
 <script src="${ctx}/js/jquery-2.1.4.js"></script>
 <script src="${ctx}/js/jquery-weui.js"></script>
 <script src="${ctx}/js/zepto.min.js"></script>
+<script src="${ctx}/js/swiper.js"></script>
     <style>
       .swiper-container {
         width: 100%;
@@ -88,6 +89,7 @@
       <div class="weui_tab_bd">
 		   <div id="tab1" class="weui_tab_bd_item weui_tab_bd_item_active">
 				<form id="form"  action="bindUser">
+				<input type="hidden" name="usertype" value="1"/> 
 					<div class="weui_cells weui_cells_form">
 						<div class="weui_cell">
 							<div class="weui_cell_hd"><label class="weui_label">手机号</label></div>
@@ -102,7 +104,7 @@
 						<div class="weui_cell">
 							<div class="weui_cell_hd"><label class="weui_label">密码</label></div>
 							<div class="weui_cell_bd weui_cell_primary">
-								<input class="weui_input" type="password" required placeholder="输入你密码" emptyTips="请输入密码" notMatchTips="请输入密码">
+								<input class="weui_input" type="password" name="password" required placeholder="输入你密码" emptyTips="请输入密码" notMatchTips="请输入密码">
 							</div>
 							<div class="weui_cell_ft">
 								<i class="weui_icon_warn"></i>
@@ -121,13 +123,60 @@
 						</div>
 					</div>
 					<div class="weui_btn_area">
-						<a id="formSubmitBtn" href="javascript:" class="weui_btn weui_btn_primary bg-blue">提交</a>
+						<a id="formSubmitBtn" href="javascript:" class="weui_btn weui_btn_primary bg-blue">绑定</a>
 					</div>
 				</form>
 			</div>
 
 			 <div id="tab2" class="weui_tab_bd_item">
-                            我的........
+                            <form id="company_form"  action="bindUser" method="post">
+				<input type="hidden" name="usertype" value="2"/> 
+					<div class="weui_cells weui_cells_form">
+						<div class="weui_cell">
+							<div class="weui_cell_hd"><label class="weui_label">手机号</label></div>
+							<div class="weui_cell_bd weui_cell_primary">
+								<input class="weui_input" type="tel" id="company_mobile" name="mobile"  required pattern="[0-9]{11}" maxlength="11" placeholder="输入你现在的手机号" emptyTips="请输入手机号" notMatchTips="请输入正确的手机号">
+							</div>
+							<div class="weui_cell_ft">
+								<i class="weui_icon_warn"></i>
+							</div>
+						</div>
+						
+						<div class="weui_cell">
+							<div class="weui_cell_hd"><label class="weui_label">企业名称</label></div>
+							<div class="weui_cell_bd weui_cell_primary">
+								<input class="weui_input" type="text" name="company"  required placeholder="输入你的企业名称" emptyTips="请输入企业名称" >
+							</div>
+							<div class="weui_cell_ft">
+								<i class="weui_icon_warn"></i>
+							</div>
+						</div>
+
+						<div class="weui_cell">
+							<div class="weui_cell_hd"><label class="weui_label">密码</label></div>
+							<div class="weui_cell_bd weui_cell_primary">
+								<input class="weui_input" type="password" name="password" required placeholder="输入你密码" emptyTips="请输入密码" notMatchTips="请输入密码">
+							</div>
+							<div class="weui_cell_ft">
+								<i class="weui_icon_warn"></i>
+							</div>
+						</div>
+						<div class="weui_cell weui_vcode" style="height: 44px;">
+							<div class="weui_cell_hd"><label class="weui_label">验证码</label></div>
+							<div class="weui_cell_bd weui_cell_primary">
+								<input class="weui_input" type="number" name="validateCode" required 
+									   placeholder="点击验证码更换" tips="请输入验证码">
+							</div>
+							<div class="weui_cell_ft">
+								<i class="weui_icon_warn"></i>
+								<input type="button" class="weui_btn bg-blue weui_btn_mini  " value="点击发送验证码" onclick="sendCompanyCode(this)" />
+							</div>
+						</div>
+					</div>
+					<div class="weui_btn_area">
+						<a id="company_formSubmitBtn" href="javascript:" class="weui_btn weui_btn_primary bg-blue">绑定</a>
+					</div>
+				</form>
                         </div>
       </div>
 
@@ -141,11 +190,48 @@ $("#formSubmitBtn").on("click", function(){
     $form.validate(function(error){
         if(error){
         }else{
-            $.toptips('验证通过提交','ok');
+        	
+        	$.ajax({  
+                type : 'POST',  
+                url : 'bindUser',  
+                dataType : 'json',  
+                data : $form.serialize(),  
+                success : function(data) {  
+                    if(data.responseCode=='00000000'){  
+                    	$.toptip('发送成功', 'success');
+                    }else{  
+                    	$.toptip('发送失败', data.responseMsg);
+                    }  
+                }  
+            });  
         }
     });
     
 });
+var $company_form = $("#company_form");
+$("#company_formSubmitBtn").on("click", function(){
+    $company_form.validate(function(error){
+        if(error){
+        }else{
+        	
+        	$.ajax({  
+                type : 'POST',  
+                url : 'bindUser',  
+                dataType : 'json',  
+                data : $form.serialize(),  
+                success : function(data) {  
+                    if(data.responseCode=='00000000'){  
+                    	$.toptip('发送成功', 'success');
+                    }else{  
+                    	$.toptip('发送失败', data.responseMsg);
+                    }  
+                }  
+            });  
+        }
+    });
+    
+});
+
 var clock = '';
 var nums = 10;
 var btn;
@@ -175,6 +261,34 @@ function sendCode(thisBtn)
         }  
     });  
 }
+
+function sendCompanyCode(thisBtn)
+{ 
+    var reg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;   
+   
+    if(!reg.test($("#company_mobile").val())){  
+        $.toptip('请输入正确的手机号', 'error');
+        return false;  
+    }
+	btn = thisBtn;
+	btn.disabled = true; //将按钮置为不可点击
+	btn.value = nums+'秒后可重新获取';
+	clock = setInterval(doLoop, 1000); //一秒执行一次
+	$.ajax({  
+        type : 'POST',  
+        url : 'sendMsg',  
+        dataType : 'json',  
+        data : {'mobile':$("#company_mobile").val()},  
+        success : function(data) {  
+            if(data.responseCode=='00000000'){  
+            	$.toptip('发送成功', 'success');
+            }else{  
+            	$.toptip('发送失败', 'error');
+            }  
+        }  
+    });  
+}
+
 function doLoop()
 {
 	nums--;
@@ -187,8 +301,12 @@ function doLoop()
 	 nums = 120; //重置时间
 }
 }
-</script>
 
+      $(".swiper-container").swiper({
+        loop: true,
+        autoplay: 3000
+      });
+    </script>
 
 
   </body>
