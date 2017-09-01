@@ -100,9 +100,15 @@ public class WeChatController {
 	@RequestMapping("bindUser")
 	@ResponseBody
 	public Map<String,String> bindUser(HttpServletRequest request,HttpServletResponse response){
+		
 		Map<String, String> map = new HashMap<String, String>();
 		HttpSession session = request.getSession();
 		String openId = (String) session.getAttribute("openid");
+		if(StringUtils.isEmpty(openId)){
+			map.put("responseCode", "99999999");
+			map.put("responseMsg", "操作失败,提交信息不合法");
+			return map;
+		}
 		UserManager userManager = new UserManager();
 		org.sword.wechat4j.user.User wechatUser = userManager.getUserInfo(openId);
 
