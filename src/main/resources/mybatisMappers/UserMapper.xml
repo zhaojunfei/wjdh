@@ -42,7 +42,8 @@
     delete from sys_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.mywjdh.logistics.logisticswechat.domain.User" >
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.mywjdh.logistics.logisticswechat.domain.User" >
+  
     insert into sys_user (id, username, password, 
       company_name, no, name, 
       email, phone, mobile, 

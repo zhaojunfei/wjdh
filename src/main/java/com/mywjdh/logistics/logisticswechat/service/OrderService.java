@@ -20,4 +20,8 @@ public class OrderService {
 	public List<Order> selectByUserId(Integer userId){
 		return orderMapper.selectByUserId(userId);
 	}
+	
+	public void updateByPrimaryKeySelective(Order record){
+		 orderMapper.updateByPrimaryKeySelective(record);
+	}
 }

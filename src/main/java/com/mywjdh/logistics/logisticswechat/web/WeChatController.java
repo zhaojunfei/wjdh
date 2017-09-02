@@ -60,8 +60,9 @@ public class WeChatController {
 			session.setAttribute("openid", openid);
 			return "login";
 		}else{
+			session.setAttribute("userId", user.getId());
 			log.info("通过openid:[{}]查找用户信息已存在,跳到管理页面",openid);
-			return "manager";
+			return "redirect:../order/order";
 		}
 	}
 	@RequestMapping("sendMsg")
@@ -132,10 +133,11 @@ public class WeChatController {
 			record.setCreateDate(new Date());
 			record.setUpdateDate(new Date());
 			record.setDelFlag("1");
-			userService.insert(record);
+			int cnt = userService.insert(record);
 			
 			session.invalidate();
 		}
+		session.setAttribute("userId", "1");
 		map.put("responseCode", "00000000");
 		map.put("responseMsg", "操作成功");
 		return map;

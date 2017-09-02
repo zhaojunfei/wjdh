@@ -299,8 +299,8 @@ public class Mail
     
     public static void main(String[] args) throws MessagingException, IOException  
     {  
-        String from = "sendorder@jccoo.com";  
-        String password = "Ljq123456";  
+        String from = "pplp@163.com";  
+        String password = "ericsson521a";  
   
         String[] to = {"773152@qq.com"};  
           

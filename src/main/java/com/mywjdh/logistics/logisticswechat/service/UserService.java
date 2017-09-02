@@ -13,7 +13,7 @@ public class UserService {
 	public User findUserByOpenid(String openid){
 		return userMapper.findUserByOpenid(openid);
 	}
-	public void insert(User record){
-		userMapper.insert(record);
+	public int insert(User record){
+		return userMapper.insert(record);
 	}
 }

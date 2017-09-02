@@ -1,6 +1,8 @@
 package com.mywjdh.logistics.logisticswechat.web;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -56,9 +59,9 @@ public class OrderController {
 	@ResponseBody
 	public Map<String, String> create(Order record,HttpServletRequest request, HttpServletResponse response){
 		Map<String, String> map = new HashMap<String, String>();
-		//Integer userId = (Integer)request.getSession().getAttribute("userid");
+		Integer userId = (Integer)request.getSession().getAttribute("userId");
 		log.info("准备创建订单,订单信息:{}",record);
-		int  userId = 1;
+		
 		record.setUserId(userId);
 		record.setCreateDate(new Date());
 		record.setUpdateDate(new Date());
@@ -73,12 +76,47 @@ public class OrderController {
 	
 	@RequestMapping("order")
 	public ModelAndView order(HttpServletRequest request, HttpServletResponse response){
-		//Integer userId = (Integer)request.getSession().getAttribute("userid");
-		int  userId = 1;
+		Integer userId = (Integer)request.getSession().getAttribute("userId");
+		
 		List<Order> orders = orderService.selectByUserId(userId);
+		for(Order order:orders){
+			Date date = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String date2 = sdf.format(date);
+			if (!jisuan(order.getReqTime(), date2) && !order.getStatus().equals("9")){
+				order.setStatus("9");
+				orderService.updateByPrimaryKeySelective(order);
+			}
+		}
+		orders = orderService.selectByUserId(userId);
 		ModelAndView modelAndView = new ModelAndView("order");
 		modelAndView.addObject("orders", orders);
 		return modelAndView;
 	}
+	
+	 public static boolean jisuan(String date1, String date2)  { 
+		 if(StringUtils.isEmpty(date1)||StringUtils.isEmpty(date2)){
+			 return true;
+		 }
+	        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d HH:mm:ss"); 
+	        Date start;
+			try {
+				start = sdf.parse(date1);
+				java.util.Date end = sdf.parse(date2); 
+		        long cha = end.getTime() - start.getTime(); 
+		        double result = cha * 1.0 / (1000 * 60 * 60); 
+		        if(result<=24){ 
+		             //System.out.println("可用");   
+		             return true; 
+		        }else{ 
+		             //System.out.println("已过期");  
+		             return false; 
+		        } 
+			} catch (ParseException e) {
+				
+				e.printStackTrace();
+			} 
+	        return true;
+	    } 
 	
 }

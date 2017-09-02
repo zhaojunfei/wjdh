@@ -29,7 +29,9 @@
 				<div class="weui_media_box ">
 					<div style="width: 50%; float: left">订单号:${order.id }</div>
 					<div style="width: 50%; float: right; text-align: right;">
-						等待收货</div>
+						<c:if test="${order.status=='9'}">已收货</c:if>
+						<c:if test="${order.status=='1'}">等待收货</c:if>
+						</div>
 					下单时间:${order.reqTime }
 				</div>
 
@@ -41,9 +43,9 @@
 							alt="">
 					</div>
 					<div class="weui_media_bd">
-						<h4 class="weui_media_title">${order.name}</h4>
+						<h4 class="weui_media_title">商品:${order.name}</h4>
 						<p class="weui_media_desc">${order}</p>
-						<p class="weui_media_button" style="text-align: right;">确认收货</p>
+						<p class="weui_media_button" style="text-align: right;"><c:if test="${order.status=='1'}">确认收货</c:if></p>
 					</div>
 				</a>
 			</c:forEach>
