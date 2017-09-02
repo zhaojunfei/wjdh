@@ -3,6 +3,7 @@ package com.mywjdh.logistics.logisticswechat.web;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletOutputStream;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.mywjdh.logistics.logisticswechat.domain.Order;
 import com.mywjdh.logistics.logisticswechat.service.OrderService;
@@ -45,7 +47,7 @@ public class OrderController {
 	 * @return
 	 */
 	@RequestMapping("buy")
-	public String order(HttpServletRequest request, HttpServletResponse response){
+	public String buy(HttpServletRequest request, HttpServletResponse response){
 	    return "buy";
 	}
 	
@@ -68,5 +70,15 @@ public class OrderController {
 		return map;
 	}
 	
+	
+	@RequestMapping("order")
+	public ModelAndView order(HttpServletRequest request, HttpServletResponse response){
+		//Integer userId = (Integer)request.getSession().getAttribute("userid");
+		int  userId = 1;
+		List<Order> orders = orderService.selectByUserId(userId);
+		ModelAndView modelAndView = new ModelAndView("order");
+		modelAndView.addObject("orders", orders);
+		return modelAndView;
+	}
 	
 }
