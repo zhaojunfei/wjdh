@@ -20,3 +20,26 @@ CREATE TABLE sys_user  (
 	PRIMARY KEY(id)
 )COMMENT = '用户表'  default charset = utf8mb4;
 
+
+
+CREATE TABLE sys_order  ( 
+	id      	int(10) UNSIGNED AUTO_INCREMENT NOT NULL,
+	user_id 	int(10) COMMENT '用户编号'  NOT NULL,
+	source_name   	varchar(100) COMMENT '寄件人姓名'   NULL,
+    source_tel      	varchar(200) COMMENT '寄件人电话'  NULL,
+    source_address      	varchar(200) COMMENT '寄件人地址'  NULL,
+    tar_name   	varchar(100) COMMENT '收件人姓名'   NULL,
+    tar_tel      	varchar(200) COMMENT '收件人电话'  NULL,
+    tar_address      	varchar(200) COMMENT '收件人地址'  NULL,
+	req_time    varchar(100) COMMENT '取件时间'  NULL,
+	name       	varchar(300) COMMENT '商品名称'  not null,
+	tiji       	varchar(300) COMMENT '体积'   null,
+	zhongliang      	varchar(200) COMMENT '重量'  NULL,
+	pack      	varchar(200) COMMENT '包装方式'  NULL,
+	status     	varchar(200) COMMENT '手机'  NULL,
+	create_date	datetime COMMENT '创建时间'  NOT NULL,
+	update_date	datetime COMMENT '更新时间'  NOT NULL,
+	remarks    	varchar(255) COMMENT '备注信息'  NULL,
+	del_flag   	char(1) COMMENT '删除标记'  NOT NULL DEFAULT '0',
+	PRIMARY KEY(id)
+)COMMENT = '订单信息表' ;

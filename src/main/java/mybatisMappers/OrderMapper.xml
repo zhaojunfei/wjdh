@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mywjdh.logistics.logisticswechat.mapper.OrderMapper" >
+  <resultMap id="BaseResultMap" type="com.mywjdh.logistics.logisticswechat.domain.Order" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="source_name" property="sourceName" jdbcType="VARCHAR" />
+    <result column="source_tel" property="sourceTel" jdbcType="VARCHAR" />
+    <result column="source_address" property="sourceAddress" jdbcType="VARCHAR" />
+    <result column="tar_name" property="tarName" jdbcType="VARCHAR" />
+    <result column="tar_tel" property="tarTel" jdbcType="VARCHAR" />
+    <result column="tar_address" property="tarAddress" jdbcType="VARCHAR" />
+    <result column="req_time" property="reqTime" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="tiji" property="tiji" jdbcType="VARCHAR" />
+    <result column="zhongliang" property="zhongliang" jdbcType="VARCHAR" />
+    <result column="pack" property="pack" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="del_flag" property="delFlag" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, source_name, source_tel, source_address, tar_name, tar_tel, tar_address, 
+    req_time, name, tiji, zhongliang, pack, status, create_date, update_date, remarks, 
+    del_flag
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mywjdh.logistics.logisticswechat.domain.Order" >
+    insert into sys_order (id, user_id, source_name, 
+      source_tel, source_address, tar_name, 
+      tar_tel, tar_address, req_time, 
+      name, tiji, zhongliang, 
+      pack, status, create_date, 
+      update_date, remarks, del_flag
+      )
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{sourceName,jdbcType=VARCHAR}, 
+      #{sourceTel,jdbcType=VARCHAR}, #{sourceAddress,jdbcType=VARCHAR}, #{tarName,jdbcType=VARCHAR}, 
+      #{tarTel,jdbcType=VARCHAR}, #{tarAddress,jdbcType=VARCHAR}, #{reqTime,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{tiji,jdbcType=VARCHAR}, #{zhongliang,jdbcType=VARCHAR}, 
+      #{pack,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{updateDate,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}, #{delFlag,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mywjdh.logistics.logisticswechat.domain.Order" >
+    insert into sys_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="sourceName != null" >
+        source_name,
+      </if>
+      <if test="sourceTel != null" >
+        source_tel,
+      </if>
+      <if test="sourceAddress != null" >
+        source_address,
+      </if>
+      <if test="tarName != null" >
+        tar_name,
+      </if>
+      <if test="tarTel != null" >
+        tar_tel,
+      </if>
+      <if test="tarAddress != null" >
+        tar_address,
+      </if>
+      <if test="reqTime != null" >
+        req_time,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="tiji != null" >
+        tiji,
+      </if>
+      <if test="zhongliang != null" >
+        zhongliang,
+      </if>
+      <if test="pack != null" >
+        pack,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="sourceName != null" >
+        #{sourceName,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceTel != null" >
+        #{sourceTel,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceAddress != null" >
+        #{sourceAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="tarName != null" >
+        #{tarName,jdbcType=VARCHAR},
+      </if>
+      <if test="tarTel != null" >
+        #{tarTel,jdbcType=VARCHAR},
+      </if>
+      <if test="tarAddress != null" >
+        #{tarAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="reqTime != null" >
+        #{reqTime,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="tiji != null" >
+        #{tiji,jdbcType=VARCHAR},
+      </if>
+      <if test="zhongliang != null" >
+        #{zhongliang,jdbcType=VARCHAR},
+      </if>
+      <if test="pack != null" >
+        #{pack,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mywjdh.logistics.logisticswechat.domain.Order" >
+    update sys_order
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="sourceName != null" >
+        source_name = #{sourceName,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceTel != null" >
+        source_tel = #{sourceTel,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceAddress != null" >
+        source_address = #{sourceAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="tarName != null" >
+        tar_name = #{tarName,jdbcType=VARCHAR},
+      </if>
+      <if test="tarTel != null" >
+        tar_tel = #{tarTel,jdbcType=VARCHAR},
+      </if>
+      <if test="tarAddress != null" >
+        tar_address = #{tarAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="reqTime != null" >
+        req_time = #{reqTime,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="tiji != null" >
+        tiji = #{tiji,jdbcType=VARCHAR},
+      </if>
+      <if test="zhongliang != null" >
+        zhongliang = #{zhongliang,jdbcType=VARCHAR},
+      </if>
+      <if test="pack != null" >
+        pack = #{pack,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mywjdh.logistics.logisticswechat.domain.Order" >
+    update sys_order
+    set user_id = #{userId,jdbcType=INTEGER},
+      source_name = #{sourceName,jdbcType=VARCHAR},
+      source_tel = #{sourceTel,jdbcType=VARCHAR},
+      source_address = #{sourceAddress,jdbcType=VARCHAR},
+      tar_name = #{tarName,jdbcType=VARCHAR},
+      tar_tel = #{tarTel,jdbcType=VARCHAR},
+      tar_address = #{tarAddress,jdbcType=VARCHAR},
+      req_time = #{reqTime,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      tiji = #{tiji,jdbcType=VARCHAR},
+      zhongliang = #{zhongliang,jdbcType=VARCHAR},
+      pack = #{pack,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

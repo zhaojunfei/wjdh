@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
 <generatorConfiguration>
-	<classPathEntry location="c:/mysql-connector-java-5.1.18.jar" />
+	<classPathEntry location="d:/tools/mysql-connector-java-5.1.18.jar" />
 	<context id="context1">
 		<property name="javaFileEncoding" value="UTF-8" />
 		<commentGenerator>
@@ -13,19 +13,19 @@
 			userId="root" password="" /> 
 			
 		<javaModelGenerator targetPackage="com.mywjdh.logistics.logisticswechat.domain"
-			targetProject="wjdh">
+			targetProject="logistics-wechat">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
 		</javaModelGenerator>
 		<sqlMapGenerator targetPackage="mybatisMappers"
-			targetProject="wjdh">
+			targetProject="logistics-wechat">
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
 		<javaClientGenerator targetPackage="com.mywjdh.logistics.logisticswechat.mapper"
-			targetProject="wjdh" type="XMLMAPPER">
+			targetProject="logistics-wechat" type="XMLMAPPER">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
-		<table tableName="sys_user" domainObjectName="User"
+		<table tableName="sys_order" domainObjectName="Order"
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false"><columnRenamingRule searchString="^OIF_" replaceString="" /></table>
