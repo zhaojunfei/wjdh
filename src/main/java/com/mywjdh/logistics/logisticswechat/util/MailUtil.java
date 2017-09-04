@@ -19,7 +19,7 @@ import javax.mail.internet.MimeMultipart;
 import javax.mail.internet.MimeUtility;  
 import javax.mail.internet.MimeBodyPart;  
   
-public class Mail  
+public class MailUtil  
 {  
     private String from; // 发件人地址  
     private String password; // 发件人密码  
@@ -30,14 +30,14 @@ public class Mail
     private String body; // 邮件正文  
     private RecipientType type = RecipientType.TO; // 默认的邮件接收类型  
       
-    public Mail() {}  
+    public MailUtil() {}  
       
     /** 
      * Construct a Mail using the specified email address and password. 
      * @param from the sender's address eg. hello@163.com 
      * @param password the password. 
      */  
-    public Mail(String from, String password)     
+    public MailUtil(String from, String password)     
     {     
         this.from = from;  
         this.password = password;  
@@ -53,7 +53,7 @@ public class Mail
      * @param body the body. 
      * @param attachments a list of attachments. 
      */  
-    public Mail(String from, String password, String[] recipients, RecipientType type, String subject, String body, File...attachments)  
+    public MailUtil(String from, String password, String[] recipients, RecipientType type, String subject, String body, File...attachments)  
     {  
         this(from, password);  
           
@@ -309,13 +309,15 @@ public class Mail
         File file1 = new File("N:/1.txt");  
           
           
-        Mail mail = new Mail(from,password, to, RecipientType.TO, subject, body);  
+        MailUtil mail = new MailUtil(from,password, to, RecipientType.TO, subject, body);  
         mail.setMailBody("你好，我是正文"); // 设置正文  
      //   mail.addRecipient("receiver2@163.com", RecipientType.CC);// 抄送  
      //   mail.addRecipient("receiver3@qq.com", RecipientType.BCC);// 密送  
         //mail.addAttachment(file1); // 添加附件  
       
-        mail.send();  
+        //mail.send();  
+        Integer i = (Integer) null;
+        System.out.println(i);
         System.out.println("邮件发送成功。");  
     }  
 }  

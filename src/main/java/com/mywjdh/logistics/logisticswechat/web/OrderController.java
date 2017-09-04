@@ -1,5 +1,6 @@
 package com.mywjdh.logistics.logisticswechat.web;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.Message.RecipientType;
+import javax.mail.MessagingException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mywjdh.logistics.logisticswechat.domain.Order;
 import com.mywjdh.logistics.logisticswechat.service.OrderService;
+import com.mywjdh.logistics.logisticswechat.util.MailUtil;
 
 @Controller
 @RequestMapping("/order")
@@ -57,9 +61,12 @@ public class OrderController {
 	
 	@RequestMapping("create")
 	@ResponseBody
-	public Map<String, String> create(Order record,HttpServletRequest request, HttpServletResponse response){
+	public Map<String, String> create(Order record,HttpServletRequest request, HttpServletResponse response) throws IOException{
 		Map<String, String> map = new HashMap<String, String>();
 		Integer userId = (Integer)request.getSession().getAttribute("userId");
+		if(StringUtils.isEmpty(userId)){
+			response.sendRedirect("../user/init");
+		}
 		log.info("准备创建订单,订单信息:{}",record);
 		
 		record.setUserId(userId);
@@ -68,6 +75,24 @@ public class OrderController {
 		record.setStatus("1");
 		record.setDelFlag("1");
 		orderService.insert(record);
+		try {
+			String from = "pplp@163.com";
+			String password = "ericsson521a";
+
+			String[] to = { "773152@qq.com" };
+			String subject = "在线买单成功";
+			String body = record.toString();
+			MailUtil mail = new MailUtil(from, password, to, RecipientType.TO, subject, body);
+			mail.setMailBody("你好，我是正文"); // 设置正文
+
+			mail.send();
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		map.put("responseCode", "00000000");
 		map.put("responseMsg", "操作成功");
 		return map;
